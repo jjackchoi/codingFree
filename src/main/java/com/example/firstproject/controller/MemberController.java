@@ -18,11 +18,14 @@ import java.util.ArrayList;
 public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
+
+    // 회원 등록 화면
     @GetMapping("/signup")
     public String signup (){
         return "members/new";
     }
 
+    // 회원 등록
     @PostMapping("/join")
     public String join(MemberForm form){
         log.info(form.toString());
@@ -35,6 +38,7 @@ public class MemberController {
         return "redirect:/members/" + saved.getId();
     }
 
+    // 회원 상세 조회
     @GetMapping("/members/{id}")
     public String findById(@PathVariable Long id, Model model){
         Member member = memberRepository.findById(id).orElse(null);
@@ -42,10 +46,35 @@ public class MemberController {
         return "members/show";
     }
 
+    // 회원 전체 조회
     @GetMapping("/members")
     public String findAll(Model model){
         ArrayList<Member> members = memberRepository.findAll();
         model.addAttribute("members", members);
         return "members/index";
+    }
+
+    // 회원 수정 페이지
+    @GetMapping("/members/{id}/edit")
+    public String edit(@PathVariable Long id, Model model){
+        Member member = memberRepository.findById(id).orElse(null);
+        model.addAttribute("member", member);
+        return "members/edit";
+    }
+
+    // 회원 수정
+    @PostMapping("/members/update")
+    public String update(MemberForm form){
+        log.info(form.toString());
+        // dto -> 엔티티
+        Member memberEntity = form.toEntity();
+        // 정보 가져오기
+        Member target = memberRepository.findById(memberEntity.getId()).orElse(null);
+        // 존재여부 확인 후 데이터 수정
+        if (target != null){
+           memberRepository.save(memberEntity);
+        }
+        // 리다이렉트 후 수정 값 확인
+        return "redirect:/members/" + memberEntity.getId() ;
     }
 }

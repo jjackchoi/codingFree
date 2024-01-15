@@ -19,11 +19,13 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
+    // 게시글 작성 페이지
     @GetMapping("/articles/new")
     public String newArticleForm(){
         return "articles/new";
     }
 
+    // 게시글 작성
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm form){
         log.info(form.toString());
@@ -39,6 +41,7 @@ public class ArticleController {
         return "redirect:/articles/" + saved.getId();
     }
 
+    // 게시글 상세조회
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model){
         log.info("id = " + id);
@@ -50,6 +53,8 @@ public class ArticleController {
         // 3. 뷰 페이지 반환하기
         return "articles/show";
     }
+
+    // 게시글 전체조회
     @GetMapping("/articles")
     public String index(Model model){
         // 1. 모든 데이터 가져오기
@@ -59,4 +64,37 @@ public class ArticleController {
         // 3. 뷰 페이지 설정하기
         return "articles/index";
     }
+
+    // 게시글 수정 페이지
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model){
+        // 수정할 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        // 모델에 데이터 등록하기
+        model.addAttribute("article", articleEntity);
+        // 뷰 페이지 설정하기
+        return "articles/edit";
+    }
+
+    // 게시글 수정
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form){
+        log.info(form.toString());
+
+        // 1. dto를 엔티티로 변환
+        Article articleEntity = form.toEntity();
+        log.info(articleEntity.toString());
+
+        // 2. 엔티티를 db에 저장
+        // 2-1 db에서 기존 데이터 가져오기
+        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+        // 2-2 기존 데이터 값을 갱신하기
+        if ( target != null ) {
+            articleRepository.save(articleEntity);
+        }
+
+        // 3. 수정 결과 페이지로 리다이렉트하기
+        return "redirect:/articles/" + articleEntity.getId();
+    }
+
 }
