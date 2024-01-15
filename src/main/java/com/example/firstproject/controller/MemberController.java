@@ -32,7 +32,7 @@ public class MemberController {
         // 2. 리파지터리로 엔티티를 db에 저장
         Member saved = memberRepository.save(member);
         log.info(saved.toString());
-        return "redirect:/signup";
+        return "redirect:/members/" + saved.getId();
     }
 
     @GetMapping("/members/{id}")
