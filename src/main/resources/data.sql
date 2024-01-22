@@ -17,6 +17,9 @@ INSERT INTO comment(article_id, nickname, body) VALUES(5, 'CHOI', '초밥');
 INSERT INTO comment(article_id, nickname, body) VALUES(6, 'PARK', '조깅');
 INSERT INTO comment(article_id, nickname, body) VALUES(6, 'KIM', '유튜브 시청');
 INSERT INTO comment(article_id, nickname, body) VALUES(6, 'CHOI', '축구');
+INSERT INTO comment(article_id, nickname, body) VALUES(6, '', '야구');
+INSERT INTO comment(article_id, nickname, body) VALUES(6, null, '볼링');
+
 
 INSERT INTO member(email, password) VALUES('a@naver.com', '1111');
 INSERT INTO member(email, password) VALUES('b@naver.com', '2222');

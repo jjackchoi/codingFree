@@ -14,11 +14,11 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "WHERE article_id = :articleId",
             nativeQuery = true) // value 속성에 실행하려는 쿼리 작성
     List<Comment> findByArticleId(Long articleId);
+
     // 특정 닉네임의 모든 댓글 조회
-    @Query(value =
-            "SELECT *" +
-            "FROM comment" +
-            "WHERE nickname = :nickname",
-            nativeQuery = true) // value 속성에 실행하려는 쿼리 작성
-    List<Comment> findByNickname(String nickname);
-}
+//    @Query(value =
+//            "SELECT *" +
+//            "FROM comment" +
+//            "WHERE nickname = :nickname",
+//            nativeQuery = true) // value 속성에 실행하려는 쿼리 작성
+    List<Comment> findByNickname(String nickname);}
