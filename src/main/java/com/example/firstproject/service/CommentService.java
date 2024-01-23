@@ -49,4 +49,18 @@ public class CommentService {
         // 4. dto를 변환해 반환
         return CommentDto.createCommentDto(created);
     }
+
+    @Transactional
+    public CommentDto update(Long id, CommentDto dto) {
+        // 1. 댓글 조회 및 예외 발생
+        Comment target = commentRepository.findById(id) // 댓글 가져오기
+                .orElseThrow(() -> new IllegalArgumentException("댓글 수정 실패!" +
+                        "댓글이 없습니다")) ; // 없으면 에러 메세지 출력
+        // 2. 댓글 수정
+        target.patch(dto);
+        // 3. db로 갱신
+        Comment updated = commentRepository.save(target);
+        // 4. 댓글 엔티티를 dto로 변환 및 반환
+        return CommentDto.createCommentDto(updated);
+    }
 }
