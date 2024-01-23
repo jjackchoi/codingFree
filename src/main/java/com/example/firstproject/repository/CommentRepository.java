@@ -21,4 +21,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 //            "FROM comment" +
 //            "WHERE nickname = :nickname",
 //            nativeQuery = true) // value 속성에 실행하려는 쿼리 작성
-    List<Comment> findByNickname(String nickname);}
+    List<Comment> findByNickname(String nickname);
+}

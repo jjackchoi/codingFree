@@ -99,18 +99,15 @@ class CommentRepositoryTest {
         }
 
         /* Case 3: null의 모든 댓글 조회 */
-//        {
-//            // 1. 입력 데이터 준비
-//            String nickname = ;
-//            // 2. 실제 데이터
-//            List<Comment> comments = commentRepository.findByNickname(nickname);
-//            // 3. 예상 데이터
-//            Comment a = new Comment(2L, new Article(4L, "당신의 인생 영화는?", "댓글 고"), "KIM", "아이 엠 셈");
-//            Comment b = new Comment(5L, new Article(5L, "당신의 소울 푸드는?", "댓글 고고"), "KIM", "피자");
-//            Comment c = new Comment(8L, new Article(6L, "당신의 취미는?", "댓글 고고고"), "KIM", "유튜브 시청");
-//            List<Comment> expected = Arrays.asList(a,b,c);
-//            // 4. 비교 및 검증
-//            assertEquals(comments.toString(), expected.toString(), "김의 모든 댓글 출력");
-//        }
+        {
+            // 1. 입력 데이터 준비
+            String nickname = null;
+            // 2. 실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+            // 3. 예상 데이터
+            List<Comment> expected = new ArrayList<Comment>();
+            // 4. 비교 및 검증
+            assertEquals(comments, expected, "닉네임이 null일 때");
+        }
     }
 }

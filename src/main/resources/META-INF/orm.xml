@@ -11,7 +11,8 @@
             <![CDATA[
                 SELECT *
                 FROM comment
-                WHERE nickname = :nickname
+                WHERE 1=1
+                AND nickname = :nickname
             ]]>
         </query>
     </named-native-query>
